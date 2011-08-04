@@ -111,6 +111,16 @@ ul, ol {
 h1 {
 	font-size:2.154em;
 }
+::-moz-selection{
+	background: #3fe1e2;
+}
+::selection {
+	background:#3fe1e2;
+	color:#000;
+}
+a:link {
+	-webkit-tap-highlight-color:#3fe1e2;
+}
 /**
 * Layout
 */
@@ -136,6 +146,10 @@ h1 {
 #hd a, #hd a:active, #hd a:visited {
 	text-decoration:none;
 	color:#3fe1e2;
+	-moz-transition:color linear 0.15s;
+	-o-transition:color linear 0.15s;
+	-webkit-transition:color linear 0.15s;
+	transition:color linear 0.15s;
 }
 #hd a:hover {
 	color:#43b7b8;
