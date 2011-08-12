@@ -126,7 +126,8 @@ a:link {
 */
 #container {
 	width:80%;
-	min-width:420px;
+	min-width:610px;
+	max-width:890px;
 	margin:0 auto 5em auto;
 }
 #hd {

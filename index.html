@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
-	<link rel="stylesheet" href="css/style.css?v=0">
+	<link rel="stylesheet" href="css/style.css?v=1">
 	<script src="js/libs/modernizr-1.7.min.js"></script>
 </head>
 <body>
@@ -27,9 +27,9 @@
 			<p>Each background-image you place in your CSS stylesheets and each <code>&lt;img&gt;</code> element you place in your HTML file causes your browser to issue a request to download the file from the web server. Each request requires a new HTTP connection to be setup, and HTTP headers to be sent down the wire before the file even starts to be transferred. With a lot of images this starts to become a problem, as a lot of unnecessary time and bandwidth is wasted performing these basic operations over and over again. JSIO helps to ease the burden of opening all these connections by placing all your image data in one file.</p>
 			<h1>How does it work?</h1>
 			<p>Simple. The JSIO script sends a request to the server to fetch a JavaScript file that contains image data. The data is loaded into the jsio.resources object - the keys are the filenames of images and the values are their data uri representation. For example:</p>
-			<code>jsio.resources = {'img/superman.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...'};</code>
+			<code>jsio.resources = {'superman.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...'};</code>
 			<p>Check this out:</p>
-			<code>&lt;img src=&quot;jsio.gif#img/superman.jpg&quot;/&gt;</code>
+			<code>&lt;img src=&quot;img/jsio.gif#superman.jpg&quot;/&gt;</code>
 			<p>This is an image element that will display the image &quot;jsio.gif&quot;. The file &quot;jsio.gif&quot; is a placeholder that signals to the library that the image by the name of &quot;img/superman.jpg&quot; has been encoded as a data URI and can be found in the jsio.resources JavaScript object.</p>
 			<p>JSIO looks for these placeholders, and replaces them with data uri's that are in the jsio.resources object.</p>
 			<code>&lt;img src=&quot;data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...&quot;/&gt;</code>
@@ -38,9 +38,9 @@
 			<p>Glad you asked. The elephant in the room is of course IE. IE &lt; 9 has a 32KB limit on data uri's and IE &lt; 8 doesn't support data uri's at all. <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#Web_browser_support">Data uri's are supported in most other browsers</a>. Also, somewhat obviously, JavaScript must be enabled.</p>
 			<h1>How can I use it on my website?</h1>
 			<ol>
-				<li>Download the latest <a href="bin/jsio-1.0.0-alpha.zip">JSIO package</a></li>
+				<li>Download the latest <a href="bin/jsio-1.0.0-beta.zip">JSIO package</a></li>
 				<li>Link to the JSIO library in your document: <br/><br/><code>&lt;script src=&quot;js/jsio.min.js&quot;&gt;&lt;/script&gt;</code></li>
-				<li>Place the placeholder image in your website root directory</li>
+				<li>Place the placeholder image in your website image directory</li>
 				<li><a href="to-data-url.html">Use this tool to generate your resources file</a></li>
 				<li>Place the resources file at &quot;/js/jsio-resources.js&quot;</li>
 				<li>Start using JSIO URLs in your <code>&lt;img&gt;</code> elements and background-image CSS declarations</li>
@@ -48,7 +48,7 @@
 			<h1>I have a question/suggestion/problem...</h1>
 			<p>Please <a href="http://freestyle-developments.co.uk/contact">contact me</a> or <a href="https://github.com/alanshaw/JavaScript-Image-Optimiser/issues">add an issue on GitHub</a></p>
 			<nav id="dl">
-				<a href="bin/jsio-1.0.0-alpha.zip" class="button white bigrounded">Download v1.0.0 Alpha</a>
+				<a href="bin/jsio-1.0.0-beta.zip" class="button white bigrounded">Download v1.0.0 Beta</a>
 			</nav>
 		</div>
 		<footer id="ft">

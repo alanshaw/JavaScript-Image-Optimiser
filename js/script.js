@@ -11,7 +11,6 @@ $(function(){
 			var files = evt.target.files,
 				flen = files.length,
 				unreadFiles = flen,
-				prefix = $('#prefix').val(),
 				dataUrls = [];
 			
 			for(var i = 0; i < flen; ++i) {
@@ -24,7 +23,7 @@ $(function(){
 				
 				reader.onload = function(evt) {
 					
-					dataUrls.push('"' + prefix + file.name + '":"' + reader.result + '"');
+					dataUrls.push('"' + file.name + '":"' + reader.result + '"');
 					unreadFiles = unreadFiles - 1;
 					
 					if(unreadFiles == 0) {
