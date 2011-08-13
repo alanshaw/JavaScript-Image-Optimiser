@@ -121,6 +121,9 @@ h1 {
 a:link {
 	-webkit-tap-highlight-color:#3fe1e2;
 }
+code {
+	word-wrap:break-word;
+}
 /**
 * Layout
 */
@@ -163,9 +166,9 @@ a:link {
 	margin:0 5em 1em 5em;
 	padding:8em 2em;
 	background-color: #fff;  
-	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.4);  
-	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.4);  
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0 0 1em #000, inset 0 0 50px rgba(0, 0, 0, 0.4);  
+	-moz-box-shadow: 0 0 1em #000, inset 0 0 50px rgba(0, 0, 0, 0.4);  
+	box-shadow:  0 0 1em #000, inset 0 0 50px rgba(0, 0, 0, 0.4);
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	border-radius:3px;
