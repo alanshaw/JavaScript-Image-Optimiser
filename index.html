@@ -1,1 +1,71 @@
-My GitHub Page
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"><![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"><![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<title>JSIO</title>
+	<meta name="description" content="JSIO is a tiny library that allows you to make fewer requests to your server by packaging all your site image data in a JavaScript file.">
+	<meta name="author" content="Alan Shaw">
+	<meta name="viewport" content="width=device-width">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
+	<link rel="stylesheet" href="css/style.css?v=2">
+	<script src="js/libs/modernizr-1.7.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<header id="hd">
+			<h1><a href="index.html"><abbr title="JavaScript Image Optimiser">JSIO</abbr></a></h1>
+		</header>
+		<div id="main" role="main">
+			<h1>What is JSIO?</h1>
+			<p>JSIO is a tiny library that allows you to make fewer requests to your server by packaging all your site image data in a JavaScript file in <a href="http://en.wikipedia.org/wiki/Data_URI_scheme">data uri format</a>. The idea is that a Gzipped JavaScript file containing all your image data is likely to be smaller than the sum of each image file and its associated HTTP request and header traffic.</p>
+			<h2>Huh?</h2>
+			<p>Each background-image you place in your CSS stylesheets and each <code>&lt;img&gt;</code> element you place in your HTML file causes your browser to issue a request to download the file from the web server. Each request requires a new HTTP connection to be setup, and HTTP headers to be sent down the wire before the file even starts to be transferred. With a lot of images this starts to become a problem, as a lot of unnecessary time and bandwidth is wasted performing these basic operations over and over again. JSIO helps to ease the burden of opening all these connections by placing all your image data in one file.</p>
+			<h1>How does it work?</h1>
+			<p>Simple. The JSIO script sends a request to the server to fetch a JavaScript file that contains image data. The data is loaded into the jsio.resources object - the keys are the filenames of images and the values are their data uri representation. For example:</p>
+			<code>jsio.resources = {'superman.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...'};</code>
+			<p>Check this out:</p>
+			<code>&lt;img src=&quot;img/jsio.gif#superman.jpg&quot;/&gt;</code>
+			<p>This is an image element that will display the image &quot;jsio.gif&quot;. The file &quot;jsio.gif&quot; is a placeholder that signals to the library that the image by the name of &quot;img/superman.jpg&quot; has been encoded as a data URI and can be found in the jsio.resources JavaScript object.</p>
+			<p>JSIO looks for these placeholders, and replaces them with data uri's that are in the jsio.resources object.</p>
+			<code>&lt;img src=&quot;data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...&quot;/&gt;</code>
+			<p>You can see JSIO in action on the <a href="test.html">test page</a>.</p>
+			<h1>What's the catch?</h1>
+			<p>Glad you asked. The elephant in the room is of course IE. IE &lt; 9 has a 32KB limit on data uri's and IE &lt; 8 doesn't support data uri's at all. <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#Web_browser_support">Data uri's are supported in most other browsers</a>. Also, somewhat obviously, JavaScript must be enabled.</p>
+			<h1>How can I use it on my website?</h1>
+			<ol>
+				<li>Download the latest <a href="bin/jsio-1.0.0-beta.zip">JSIO package</a></li>
+				<li>Link to the JSIO library in your document: <br/><br/><code>&lt;script src=&quot;js/jsio.min.js&quot;&gt;&lt;/script&gt;</code></li>
+				<li>Place the placeholder image in your website image directory</li>
+				<li><a href="to-data-url.html">Use this tool to generate your resources file</a></li>
+				<li>Place the resources file at &quot;/js/jsio-resources.js&quot;</li>
+				<li>Start using JSIO URLs in your <code>&lt;img&gt;</code> elements and background-image CSS declarations</li>
+			</ol>
+			<h1>What's new in this version?</h1>
+			<p>See the <a href="changelog">changelog</a></p>
+			<h1>I have a question/suggestion/problem...</h1>
+			<p>Please <a href="http://freestyle-developments.co.uk/contact">contact me</a> or <a href="https://github.com/alanshaw/JavaScript-Image-Optimiser/issues">add an issue on GitHub</a></p>
+			<nav id="dl">
+				<a href="bin/jsio-1.0.0-beta.zip" class="button white bigrounded">Download v1.0.0 Beta</a>
+			</nav>
+		</div>
+		<footer id="ft">
+			<a href="http://www.w3.org/html/logo/">
+				<img src="http://www.w3.org/html/logo/badge/html5-badge-h-css3-performance-semantics-storage.png" width="229" height="64" alt="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage" title="HTML5 Powered with CSS3 / Styling, Performance &amp; Integration, Semantics, and Offline &amp; Storage">
+			</a>
+		</footer>
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.6.2.min.js"%3E%3C/script%3E'))</script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
+	<!--[if lt IE 7 ]>
+	<script src="js/libs/dd_belatedpng.js"></script>
+	<script> DD_belatedPNG.fix('img, .png_bg');</script>
+	<![endif]-->
+</body>
+</html>
