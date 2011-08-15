@@ -166,25 +166,34 @@
 		processImageElements();
 	}
 	
-	var resScript = d.createElement('script');
-	
-	// IE < 9 does not fire onload callback on script elements
-	if(ie < 9) {
+	// IE 7 and below can't display data uri encoded images - don't even bother to download the resources file
+	if(ie < 8) {
 		
-		resScript.onreadystatechange = function() {
-			
-			if(this.readyState == 'loaded' || this.readyState == 'complete') {
-				
-				process();
-			}
-		}
+		jsio.resources = {};
+		
+		process();
 		
 	} else {
 		
-		resScript.onload = process;
+		var resScript = d.createElement('script');
+		
+		// IE < 9 does not fire onload callback on script elements
+		if(ie < 9) {
+			
+			resScript.onreadystatechange = function() {
+				
+				if(this.readyState == 'loaded' || this.readyState == 'complete') {
+					process();
+				}
+			}
+			
+		} else {
+			
+			resScript.onload = process;
+		}
+		
+		jsioScript.parentNode.appendChild(resScript, jsioScript);
+		resScript.src = getQueryString('resUrl', '/js/jsio-resources.js');
 	}
-	
-	jsioScript.parentNode.appendChild(resScript, jsioScript);
-	resScript.src = getQueryString('resUrl', '/js/jsio-resources.js');
 	
 })(window, document);
