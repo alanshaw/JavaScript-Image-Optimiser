@@ -36,3 +36,4 @@ Thumbs.db
 # IDE generated files #
 #######################
 *.iml
+.idea
