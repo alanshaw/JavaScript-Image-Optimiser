@@ -67,7 +67,7 @@
 		
 		if(!dflt) dflt = '';
 		
-		var regex = new RegExp("[\\?&]" + key + "=([^&#]*)"),
+		var regex = new RegExp("[\\?&]" + key + "=([^&#]+)"),
 			match = regex.exec(qs);
 		
 		return match ? match[1] : dflt;
