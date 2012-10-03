@@ -2,6 +2,7 @@ v1.0.0
 ======
 
 - Added IE < 8 optimisation (IE < 8 does not download the jsio-resources.js)
+- Opimisations for minified (but not gzipped) script
 
 v1.0.0 Beta
 ===========

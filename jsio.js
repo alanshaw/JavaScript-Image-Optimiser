@@ -21,7 +21,7 @@
 	// Init ///////////////////////////////////////////////////////////////////
 	
 	// Setup the JSIO namespace
-	if(!w.jsio) w.jsio = {};
+    w.jsio = w.jsio || {};
 	
 	var scripts = d.getElementsByTagName('script'),
 		jsioScript = scripts[scripts.length - 1],
@@ -90,26 +90,30 @@
 				if(bgImageStyle) {
 					
 					var regex = /url\(['"]?(.*?)jsio\.gif#(.*?)['"]?\)/gmi,
-						match,
+						matches,
 						dataUriBgImageStyle = bgImageStyle;
 					
-					while(match = regex.exec(bgImageStyle)) {
+					while(matches = regex.exec(bgImageStyle)) {
 						
-						if(jsio.resources[match[2]]) {
+						var fullMatch = matches[0],
+							path = matches[1], 
+							filename = matches[2];
+						
+						if(jsio.resources[filename]) {
 							
 							// IE < 8 does not support data uri and IE8 has a 32KB limit
-							if(ie < 8 || (ie == 8 && jsio.resources[match[2]].length * 2 > 32000)) {
+							if(ie < 8 || (ie == 8 && jsio.resources[filename].length * 2 > 32000)) {
 								
-								dataUriBgImageStyle = dataUriBgImageStyle.replace(match[0], 'url(' + match[1] + match[2] + ')');
+								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + path + filename + ')');
 								
 							} else {
 								
-								dataUriBgImageStyle = dataUriBgImageStyle.replace(match[0], 'url(' + jsio.resources[match[2]] + ')');
+								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + jsio.resources[filename] + ')');
 							}
 							
 						} else {
 							
-							dataUriBgImageStyle = dataUriBgImageStyle.replace(match[0], 'url(' + match[1] + match[2] + ')');
+							dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + path + filename + ')');
 						}
 					}
 					
@@ -130,26 +134,33 @@
 		
 		for(var i = 0, ilen = images.length; i < ilen; ++i) {
 			
-			var regex = /(.*?)jsio\.gif#(.*)/gmi, match;
+			var image = images[i],
+				regex = /(.*?)jsio\.gif#(.*)/gmi, 
+				matches;
 			
-			if(match = regex.exec(images[i].src)) {
+			if(matches = regex.exec(image.src)) {
 				
-				if(jsio.resources[match[2]]) {
+				var filename = matches[2], 
+					src;
+				
+				if(jsio.resources[filename]) {
 					
 					// IE < 8 does not support data uri and IE8 has a 32KB limit
-					if(ie < 8 || (ie == 8 && jsio.resources[match[2]].length * 2 > 32000)) {
+					if(ie < 8 || (ie == 8 && jsio.resources[filename].length * 2 > 32000)) {
 						
-						images[i].src = match[1] + match[2];
+						src = matches[1] + filename;
 						
 					} else {
 						
-						images[i].src = jsio.resources[match[2]];
+						src = jsio.resources[filename];
 					}
 					
 				} else {
 					
-					images[i].src = match[2];
+					src = filename;
 				}
+				
+				image.src = src;
 			}
 		}
 	}
