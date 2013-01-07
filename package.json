@@ -1,0 +1,29 @@
+{
+  "name": "jsio",
+  "version": "1.1.0",
+  "description": "JSIO is a tiny library that allows you to make fewer requests to your server by packaging all your site image data in a JavaScript file in data uri format.",
+  "main": "src/jsio.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alanshaw/JavaScript-Image-Optimiser.git"
+  },
+  "keywords": [
+    "jsio",
+    "javascript",
+    "image",
+    "optimisation",
+    "optimiser",
+    "jpg",
+    "gif",
+    "png"
+  ],
+  "author": "Alan Shaw",
+  "license": "MIT",
+  "readmeFilename": "README.markdown"
+}

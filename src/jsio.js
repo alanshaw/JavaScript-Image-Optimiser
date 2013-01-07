@@ -1,31 +1,12 @@
-/**
- * JSIO v0.0.0
- * YYYY.MM.DD
- * 
- * Copyright 2011 Alan Shaw
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and limitations
- * under the License.
- */
 (function(w, d) {
 	
 	// Init ///////////////////////////////////////////////////////////////////
 	
 	// Setup the JSIO namespace
-    w.jsio = w.jsio || {};
+	w.jsio = w.jsio || {};
 	
 	var scripts = d.getElementsByTagName('script'),
 		jsioScript = scripts[scripts.length - 1],
-		qs = '?' + jsioScript.src.replace(/^[^\?]+\??/, ''),
 		// Check for IE thanks to https://gist.github.com/527683
 		ie = (function(){
 		
@@ -63,17 +44,7 @@
 	
 	// Function ///////////////////////////////////////////////////////////////
 	
-	function getQueryString(key, dflt) {
-		
-		if(!dflt) dflt = '';
-		
-		var regex = new RegExp("[\\?&]" + key + "=([^&#]+)"),
-			match = regex.exec(qs);
-		
-		return match ? match[1] : dflt;
-	}
-	
-	function processCssBackgroundImages() {
+	function processCssBackgroundImages(resources) {
 		
 		// CSS background images
 		for(var i = 0, ilen = d.styleSheets.length; i < ilen; ++i) {
@@ -90,31 +61,33 @@
 				if(bgImageStyle) {
 					
 					var regex = /url\(['"]?(.*?)jsio\.gif#(.*?)['"]?\)/gmi,
-						matches,
+						matches = regex.exec(bgImageStyle),
 						dataUriBgImageStyle = bgImageStyle;
 					
-					while(matches = regex.exec(bgImageStyle)) {
+					while(matches) {
 						
 						var fullMatch = matches[0],
 							path = matches[1], 
 							filename = matches[2];
 						
-						if(jsio.resources[filename]) {
+						if(resources[filename]) {
 							
 							// IE < 8 does not support data uri and IE8 has a 32KB limit
-							if(ie < 8 || (ie == 8 && jsio.resources[filename].length * 2 > 32000)) {
+							if(ie < 8 || (ie == 8 && resources[filename].length * 2 > 32000)) {
 								
 								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + path + filename + ')');
 								
 							} else {
 								
-								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + jsio.resources[filename] + ')');
+								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + resources[filename] + ')');
 							}
 							
 						} else {
 							
 							dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + path + filename + ')');
 						}
+						
+						matches = regex.exec(bgImageStyle);
 					}
 					
 					if(dataUriBgImageStyle != bgImageStyle) {
@@ -128,7 +101,7 @@
 		}
 	}
 	
-	function processImageElements() {
+	function processImageElements(resources) {
 		
 		var images = d.getElementsByTagName('img');
 		
@@ -136,23 +109,23 @@
 			
 			var image = images[i],
 				regex = /(.*?)jsio\.gif#(.*)/gmi, 
-				matches;
+				matches = regex.exec(image.src);
 			
-			if(matches = regex.exec(image.src)) {
+			if(matches) {
 				
 				var filename = matches[2], 
 					src;
 				
-				if(jsio.resources[filename]) {
+				if(resources[filename]) {
 					
 					// IE < 8 does not support data uri and IE8 has a 32KB limit
-					if(ie < 8 || (ie == 8 && jsio.resources[filename].length * 2 > 32000)) {
+					if(ie < 8 || (ie == 8 && resources[filename].length * 2 > 32000)) {
 						
 						src = matches[1] + filename;
 						
 					} else {
 						
-						src = jsio.resources[filename];
+						src = resources[filename];
 					}
 					
 				} else {
@@ -167,20 +140,30 @@
 	
 	// Main ///////////////////////////////////////////////////////////////////
 	
-	function process() {
+	function process(resources) {
+		
+		resources = resources || w.jsio.resources;
 		
 		// Fail fast for invalid resource files or 404 (in IE's case)
-		if(!jsio.resources) return;
+		if(!resources) return;
 		
-		processCssBackgroundImages();
+		processCssBackgroundImages(resources);
 		
-		processImageElements();
+		processImageElements(resources);
 	}
+	
+	// Expose the process function so that it can be called when new image elements and style rules are added
+	w.jsio.process = process;
+	
+	var resUrl = jsioScript.getAttribute('data-res-url');
+	
+	// Don't process jsio URLs if no resources file specified, assume user will call "process"
+	if(!resUrl) return;
 	
 	// IE 7 and below can't display data uri encoded images - don't even bother to download the resources file
 	if(ie < 8) {
 		
-		jsio.resources = {};
+		w.jsio.resources = {};
 		
 		process();
 		
@@ -193,18 +176,20 @@
 			
 			resScript.onreadystatechange = function() {
 				
-				if(this.readyState == 'loaded' || this.readyState == 'complete') {
+				var state = this.readyState;
+				
+				if(state == 'loaded' || state == 'complete') {
 					process();
 				}
-			}
+			};
 			
 		} else {
 			
 			resScript.onload = process;
 		}
 		
-		jsioScript.parentNode.appendChild(resScript, jsioScript);
-		resScript.src = getQueryString('resUrl', '/js/jsio-resources.js');
+		jsioScript.parentNode.appendChild(resScript);
+		resScript.src = resUrl;
 	}
 	
-})(window, document);
+})(this, document);

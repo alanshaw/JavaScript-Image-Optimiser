@@ -1,3 +1,13 @@
+v1.1.0
+======
+
+- Exposed "process" function to allow new image elements and style rules with JSIO URLs to be processed
+- "process" function optionally takes a jsio resources object parameter
+- Use HTML5 "data-res-url" attribute instead of querystring to specify jsio resources file URL
+- If no resources URL is specified, don't process jsio URLs - assume the user is going to manually call "process"
+- General preformance tweaks
+- Moved to grunt for build and test
+
 v1.0.0
 ======
 
