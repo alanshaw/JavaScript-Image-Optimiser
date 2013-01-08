@@ -13,16 +13,26 @@ module.exports = function(grunt) {
 			all: ['src/jsio.js', 'test/*.js']
 		},
 		
+		jshint: {
+			options: {
+				node: true
+			}
+		},
+		
 		min: {
 			dist: {
 				src: ['<banner>', 'src/jsio.js'],
 				dest: 'dist/jsio.min.js'
 			}
+		},
+		
+		test: {
+			files: ['test/*.js']
 		}
 	});
 	
 	//grunt.loadNpmTasks('grunt-sample');
 	
 	// Default task.
-	grunt.registerTask('default', 'lint min');
+	grunt.registerTask('default', 'lint test min');
 };
