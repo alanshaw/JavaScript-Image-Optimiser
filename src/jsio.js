@@ -185,7 +185,9 @@
 			
 		} else {
 			
-			resScript.onload = process;
+			resScript.onload = function() {
+				process();
+			}
 		}
 		
 		jsioScript.parentNode.appendChild(resScript);
