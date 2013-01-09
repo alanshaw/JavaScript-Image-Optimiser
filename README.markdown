@@ -36,9 +36,9 @@ Glad you asked. The elephant in the room is of course IE. IE < 9 has a 32KB limi
 How can I use it on my website?
 ===============================
 
-- Download the latest [JSIO package](https://github.com/alanshaw/JavaScript-Image-Optimiser/archives/master)
-- Link to the JSIO library in your document: `<script src="js/jsio.min.js"></script>`
-- Place the placeholder image in your website image directory
+- Clone the latest [JSIO code](https://github.com/alanshaw/JavaScript-Image-Optimiser/)
+- Link to the JSIO library in your document: `<script src="js/jsio.js" data-res-url="/js/jsio-resources.js"></script>`
+- Place the placeholder image (jsio.gif) in your website image directory
 - [Use this tool to generate your resources file](http://alanshaw.github.com/JavaScript-Image-Optimiser/to-data-url.html)
 - Place the resources file at "/js/jsio-resources.js"
 - Start using JSIO URLs in your `<img>` elements and background-image CSS declarations
