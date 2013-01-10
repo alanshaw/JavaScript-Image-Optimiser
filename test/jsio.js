@@ -275,6 +275,61 @@
 			test.notEqual(resScript.onreadystatechange, undefined, 'An onreadystatechange function should have been registered with the resources script');
 			
 			test.done();
+		},
+		
+		testProcessCssBackgroundImages: function(test) {
+			
+			var document = mockDocument();
+			
+			// Create mock CSS data to process
+			document.styleSheets = [{
+				cssRules: [{
+					style: {
+						backgroundImage: 'url(path/to/images/jsio.gif#foo.jpg)'
+					}
+				}, {
+					style: {
+						backgroundImage: 'url("jsio.gif#bar.gif")'
+					}
+				}]
+			}, {
+				cssRules: [{
+					style: {
+						backgroundImage: "url('some/path/to/jsio.gif#not-found.png')"
+					}
+				}]
+			}];
+			
+			var resources = {
+				'foo.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...',
+				'bar.gif': 'data:image/gif;base64,R0lGODlhqQGpAfcAABMVFhQVFhUVFhUWFhQWFhYWFhcX...'
+			};
+			
+			var context = runInContext({document: document});
+			
+			context.jsio.process(resources);
+			
+			test.expect(3);
+			
+			test.equal(
+				document.styleSheets[0].cssRules[0].style.backgroundImage,
+				'url(' + resources['foo.jpg'] + ')',
+				'Should have replace backgroundImage URL for foo.jpg with data URL from JSIO resources'
+			);
+			
+			test.equal(
+				document.styleSheets[0].cssRules[1].style.backgroundImage,
+				'url(' + resources['bar.gif'] + ')',
+				'Should have replace backgroundImage URL for bar.gif with data URL from JSIO resources'
+			);
+			
+			test.equal(
+				document.styleSheets[1].cssRules[0].style.backgroundImage,
+				'url("some/path/to/not-found.png")',
+				'Should have replace backgroundImage URL for not-found.png with image URL since it was not present in JSIO resources file'
+			);
+			
+			test.done();
 		}
 	};
 }());
