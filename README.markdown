@@ -43,6 +43,7 @@ How can I use it on my website?
 - Place the resources file at "/js/jsio-resources.js"
 - Start using JSIO URLs in your `<img>` elements and background-image CSS declarations
 
+[Advanced usage](https://github.com/alanshaw/JavaScript-Image-Optimiser/blob/master/doc/advanced-usage.md)
 
 What's new in this version?
 ===========================
