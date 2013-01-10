@@ -330,6 +330,69 @@
 			);
 			
 			test.done();
+		},
+		
+		testProcessImageElements: function(test) {
+			
+			var document = mockDocument();
+			
+			document.styleSheets = [];
+			
+			var imageElements =[{
+				src: 'path/to/images/jsio.gif#foo.jpg'
+			}, {
+				src: 'path/to/images/jsio.gif#bar.gif'
+			}, {
+				src: 'path/to/images/jsio.gif#not-found.png'
+			}];
+			
+			document.getElementsByTagName = function(tagName) {
+				
+				// For when JSIO tries to get it's <script> tag
+				if(tagName == 'script') {
+					return [{
+						getAttribute: function() {
+							return null;
+						}
+					}];
+					
+				} else if(tagName == 'img') {
+					return imageElements;
+				}
+				
+				return [];
+			};
+			
+			var resources = {
+				'foo.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...',
+				'bar.gif': 'data:image/gif;base64,R0lGODlhqQGpAfcAABMVFhQVFhUVFhUWFhQWFhYWFhcX...'
+			};
+			
+			var context = runInContext({document: document});
+			
+			context.jsio.process(resources);
+			
+			test.expect(3);
+			
+			test.equal(
+				imageElements[0].src,
+				resources['foo.jpg'],
+				'Should have replace image src for foo.jpg with data URL from JSIO resources'
+			);
+			
+			test.equal(
+				imageElements[1].src,
+				resources['bar.gif'],
+				'Should have replace image src for bar.gif with data URL from JSIO resources'
+			);
+			
+			test.equal(
+				imageElements[2].src,
+				'path/to/images/not-found.png',
+				'Should have replace image src for not-found.png with image URL since it was not present in JSIO resources file'
+			);
+			
+			test.done();
 		}
 	};
 }());
