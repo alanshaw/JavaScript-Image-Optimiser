@@ -75,7 +75,7 @@
 							// IE < 8 does not support data uri and IE8 has a 32KB limit
 							if(ie < 8 || (ie == 8 && resources[filename].length * 2 > 32000)) {
 								
-								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + path + filename + ')');
+								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url("' + path + filename + '")');
 								
 							} else {
 								
@@ -84,7 +84,7 @@
 							
 						} else {
 							
-							dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + path + filename + ')');
+							dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url("' + path + filename + '")');
 						}
 						
 						matches = regex.exec(bgImageStyle);
