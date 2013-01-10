@@ -62,6 +62,6 @@ After processing, the image HTML will look like:
 
 ...since `bar.gif` is not in the resources.
 
-This is problematic if you're planning on calling `jsio.process` more than once. This could be for any number of reasons, perhaps you put new content in the DOM, or perhaps you run a bunch of sites under one umbrella company and have one resources file with shared resources and one with site specific resources.
+This is problematic if you're planning on calling `jsio.process` more than once. This could be for any number of reasons, perhaps you run a bunch of sites under one umbrella company and have one resources file with shared resources and one with site specific resources.
 
-Luckily, you can pass a second parameter to the `jsio.process` function - a boolean, which enables or disables the resource 404 fallback. By default it is enabled, but pass `false` to the function to disable it e.g. `jsio.process(data, false)`.
+Luckily, you can pass a second parameter to the `jsio.process` function - a boolean, which enables or disables the resource 404 fallback. By default it is enabled, but pass `false` to the function to disable it e.g. `jsio.process(data, false)`. Now the fallback will not occur and you can call `jsio.process` again with different resources to process JSIO URLs referencing resources that weren't in the first resources file but _are_ in the second.
