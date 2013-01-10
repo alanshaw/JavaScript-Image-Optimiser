@@ -44,7 +44,7 @@
 	
 	// Function ///////////////////////////////////////////////////////////////
 	
-	function processCssBackgroundImages(resources) {
+	function processCssBackgroundImages(resources, resource404FallbackEnabled) {
 		
 		// CSS background images
 		for(var i = 0, ilen = d.styleSheets.length; i < ilen; ++i) {
@@ -82,9 +82,9 @@
 								dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url(' + resources[filename] + ')');
 							}
 							
-						} else {
+						} else if(resource404FallbackEnabled) {
 							
-							dataUriBgImageStyle = dataUriBgImageStyle.replace(fullMatch, 'url("' + path + filename + '")');
+							dataUriBgImageStyle = dataUriBgImageStyle.replace('jsio.gif#', '');
 						}
 						
 						matches = regex.exec(bgImageStyle);
@@ -101,7 +101,7 @@
 		}
 	}
 	
-	function processImageElements(resources) {
+	function processImageElements(resources, resource404FallbackEnabled) {
 		
 		var images = d.getElementsByTagName('img');
 		
@@ -115,7 +115,7 @@
 				
 				var path = matches[1],
 					filename = matches[2], 
-					src;
+					src = null;
 				
 				if(resources[filename]) {
 					
@@ -129,28 +129,39 @@
 						src = resources[filename];
 					}
 					
-				} else {
+				} else if(resource404FallbackEnabled) {
 					
-					src = path + filename;
+					src = image.src.replace('jsio.gif#', '');
 				}
 				
-				image.src = src;
+				if(src) image.src = src;
 			}
 		}
 	}
 	
 	// Main ///////////////////////////////////////////////////////////////////
-	
-	function process(resources) {
+
+	/**
+	 * Process JSIO URLs
+	 * 
+	 * @param {Object} [resources] The resources for substitution. Default: window.jsio.resources.
+	 * @param {Boolean} [resource404FallbackEnabled] If the resource is not found in the resources object, remove 
+	 * "jsio.gif#" from the image src or backgroud image url(). Default true.
+	 */
+	function process(resources, resource404FallbackEnabled) {
 		
 		resources = resources || w.jsio.resources;
 		
 		// Fail fast for invalid resource files or 404 (in IE's case)
 		if(!resources) return;
 		
-		processCssBackgroundImages(resources);
+		if(resource404FallbackEnabled !== false) {
+			resource404FallbackEnabled = true;
+		}
 		
-		processImageElements(resources);
+		processCssBackgroundImages(resources, resource404FallbackEnabled);
+		
+		processImageElements(resources, resource404FallbackEnabled);
 	}
 	
 	// Expose the process function so that it can be called when new image elements and style rules are added

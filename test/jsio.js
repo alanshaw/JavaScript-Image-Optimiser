@@ -325,7 +325,7 @@
 			
 			test.equal(
 				document.styleSheets[1].cssRules[0].style.backgroundImage,
-				'url("some/path/to/not-found.png")',
+				"url('some/path/to/not-found.png')",
 				'Should have replace backgroundImage URL for not-found.png with image URL since it was not present in JSIO resources file'
 			);
 			
