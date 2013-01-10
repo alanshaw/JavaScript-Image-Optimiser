@@ -1,3 +1,9 @@
+v1.1.1
+======
+
+- Fix problem processing images where path to image file wouldn't be prefixed to the filename when the file is not found in the JSIO resources file
+- Added quotes around background image URLs when we can't use a data URL incase the URL contains special characters.
+
 v1.1.0
 ======
 

@@ -113,7 +113,8 @@
 			
 			if(matches) {
 				
-				var filename = matches[2], 
+				var path = matches[1],
+					filename = matches[2], 
 					src;
 				
 				if(resources[filename]) {
@@ -121,7 +122,7 @@
 					// IE < 8 does not support data uri and IE8 has a 32KB limit
 					if(ie < 8 || (ie == 8 && resources[filename].length * 2 > 32000)) {
 						
-						src = matches[1] + filename;
+						src = path + filename;
 						
 					} else {
 						
@@ -130,7 +131,7 @@
 					
 				} else {
 					
-					src = filename;
+					src = path + filename;
 				}
 				
 				image.src = src;
