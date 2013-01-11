@@ -5,11 +5,13 @@ Advanced Usage
 Manual URL processing
 ---------------------
 
+JSIO executes immediately, which is why it has to be placed at the bottom of your HTML document. If you want to link the library in the page `<head>` (why?) or simply don't want this behaviour then you'll need to tell JSIO to process URLs manually, when the document has finished loading.
+
 If you don't specify a `data-res-url` attribute on your JSIO script element then JSIO will not automatically process your JSIO URLs. You can process URLs manually as follows:
 
 	<img src="img/jsio.gif#foo.jpg" alt="A foo"/>
 	<img src="img/jsio.gif#bar.gif" alt="A bar"/>
-	<script src="js/jsio.js">
+	<script src="js/jsio.js"></script>
 	<script>
 		
 		var resources = {
@@ -21,6 +23,21 @@ If you don't specify a `data-res-url` attribute on your JSIO script element then
 		
 	</script>
 
+...or (with jQuery)
+
+	<head>
+		<script src="js/jsio.js" async></script>
+		<script src="js/jsio-resources.js" async></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+			jQuery(window).load(function() { jsio.process(); });
+		</script>
+	</head>
+	<body>
+	<img src="img/jsio.gif#foo.jpg" alt="A foo"/>
+	<img src="img/jsio.gif#bar.gif" alt="A bar"/>
+	...
+
 
 JSON resources
 --------------
@@ -30,7 +47,7 @@ By default, JSIO resources files are JavaScript files which, when run, attach th
 	<img src="img/jsio.gif#foo.jpg" alt="A foo"/>
 	<img src="img/jsio.gif#bar.gif" alt="A bar"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="js/jsio.js">
+	<script src="js/jsio.js"></script>
 	<script>
 		
 		jQuery.getJSON(
@@ -50,7 +67,7 @@ The default behaviour of JSIO is to fallback to the image URL when an image is n
  
 	<img src="img/jsio.gif#foo.jpg" alt="A foo"/>
 	<img src="img/jsio.gif#bar.gif" alt="A bar"/>
-	<script src="js/jsio.js">
+	<script src="js/jsio.js"></script>
 	<script>
 		jsio.process({'foo.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...'});
 	</script>

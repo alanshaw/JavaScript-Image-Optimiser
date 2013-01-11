@@ -37,7 +37,7 @@ How can I use it on my website?
 ===============================
 
 - Clone the latest [JSIO code](https://github.com/alanshaw/JavaScript-Image-Optimiser/)
-- Link to the JSIO library in your document: `<script src="js/jsio.js" data-res-url="/js/jsio-resources.js"></script>`
+- Link to the JSIO library _at the bottom_ of your document: `<script src="js/jsio.js" data-res-url="/js/jsio-resources.js"></script>`
 - Place the placeholder image (jsio.gif) in your website image directory
 - [Use this tool to generate your resources file](http://alanshaw.github.com/JavaScript-Image-Optimiser/to-data-url.html). There is also a [grunt task](https://npmjs.org/package/grunt-jsio) that'll do this for you.
 - Place the resources file at "/js/jsio-resources.js"
