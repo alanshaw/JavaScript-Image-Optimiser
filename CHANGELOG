@@ -1,9 +1,10 @@
 v1.1.1
 ======
 
-- Fix problem processing images where path to image file wouldn't be prefixed to the filename when the file is not found in the JSIO resources file
+- Fixed problem processing images where path to image file wouldn't be prefixed to the filename when the file is not found in the JSIO resources file
 - Added quotes around background image URLs when we can't use a data URL incase the URL contains special characters.
 - Added parameter to process function that allows the callee to control whether the 404 fallback occurs or not
+- Fixed error thrown whilst trying to process cross domain stylesheets (can't be done so now skips over them)
 
 v1.1.0
 ======

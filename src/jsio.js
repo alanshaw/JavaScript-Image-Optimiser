@@ -51,9 +51,18 @@
 			
 			var styleSheet = d.styleSheets[i],
 				// Allows access to the non-standard list of CSS rules in IE
-				cssRules = ie < 9 ? 'rules' : 'cssRules';
+				cssRules = ie < 9 ? 'rules' : 'cssRules',
+				rulesLength;
 			
-			for(var j = 0, jlen = styleSheet[cssRules].length; j < jlen; ++j) {
+			// Skip over styles in cross domain stylesheets
+			// Cannot parse as SecurityError will be thrown if try to access cssRules for a cross domain stylesheet
+			try {
+				rulesLength = styleSheet[cssRules].length;
+			} catch(e) {
+				continue;
+			}
+			
+			for(var j = 0; j <  rulesLength; ++j) {
 				
 				var rule = styleSheet[cssRules][j],
 					bgImageStyle = rule.style.backgroundImage;
@@ -199,7 +208,7 @@
 			
 			resScript.onload = function() {
 				process();
-			}
+			};
 		}
 		
 		jsioScript.parentNode.appendChild(resScript);
