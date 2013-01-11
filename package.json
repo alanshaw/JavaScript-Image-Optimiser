@@ -1,32 +1,38 @@
 {
-  "name": "jsio",
-  "version": "1.1.1",
-  "description": "JSIO is a tiny library that allows you to make fewer requests to your server by packaging all your site image data in a JavaScript file in data uri format.",
-  "main": "src/jsio.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/alanshaw/JavaScript-Image-Optimiser.git"
-  },
-  "keywords": [
-    "jsio",
-    "javascript",
-    "image",
-    "optimisation",
-    "optimiser",
-    "jpg",
-    "gif",
-    "png"
-  ],
-  "author": "Alan Shaw",
-  "license": "MIT",
-  "readmeFilename": "README.markdown",
-  "devDependencies": {
-    "grunt": "~0.3.17"
-  }
+	"name": "jsio",
+	"version": "1.1.1",
+	"description": "JSIO is a tiny library that allows you to make fewer requests to your server by packaging all your site image data in a JavaScript file in data uri format.",
+	"author": "Alan Shaw",
+	"licenses": [{
+		"type": "MIT",
+		"url": "https://github.com/alanshaw/JavaScript-Image-Optimiser/blob/master/LICENCE-MIT"
+	}],
+	"devDependencies": {
+		"grunt": "~0.3.17"
+	},
+	"main": "src/jsio.js",
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"test": "grunt test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/alanshaw/JavaScript-Image-Optimiser.git"
+	},
+	"keywords": [
+		"jsio",
+		"javascript",
+		"image",
+		"optimisation",
+		"optimiser",
+		"jpg",
+		"gif",
+		"png"
+	],
+	"readmeFilename": "README.markdown",
+	"engines": {
+		"node": ">=0.8"
+	}
 }
