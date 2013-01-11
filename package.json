@@ -25,5 +25,8 @@
   ],
   "author": "Alan Shaw",
   "license": "MIT",
-  "readmeFilename": "README.markdown"
+  "readmeFilename": "README.markdown",
+  "devDependencies": {
+    "grunt": "~0.3.17"
+  }
 }
