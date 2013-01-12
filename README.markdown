@@ -54,3 +54,5 @@ I have a question/suggestion/problem...
 =======================================
 
 Please [contact me](http://freestyle-developments.co.uk/contact) or [add an issue on GitHub](https://github.com/alanshaw/JavaScript-Image-Optimiser/issues)
+
+...or check the [Frequently asked questions](https://github.com/alanshaw/JavaScript-Image-Optimiser/blob/master/doc/faq.md)
