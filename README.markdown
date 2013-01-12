@@ -14,17 +14,23 @@ How does it work?
 
 Simple. The JSIO script sends a request to the server to fetch a JavaScript file that contains image data. The data is loaded into the jsio.resources object - the keys are the filenames of images and the values are their data uri representation. For example:
 
-	jsio.resources = {'superman.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...'};
+```javascript
+jsio.resources = {'superman.jpg': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU...'};
+```
 
 Check this out:
 
-	<img src="img/jsio.gif#superman.jpg"/>
+```html
+<img src="img/jsio.gif#superman.jpg"/>
+```
 
 This is an image element that will display the image &quot;jsio.gif&quot;. The file &quot;jsio.gif&quot; is a placeholder that signals to the library that the image by the name of &quot;img/superman.jpg&quot; has been encoded as a data URI and can be found in the jsio.resources JavaScript object.
 
 JSIO looks for these placeholders, and replaces them with data uri's that are in the jsio.resources object.
 
-	<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU..."/>
+```html
+<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBhISEBU..."/>
+```
 
 You can see JSIO in action on the [test page](http://alanshaw.github.com/JavaScript-Image-Optimiser/test.html).
 
@@ -55,4 +61,4 @@ I have a question/suggestion/problem...
 
 Please [contact me](http://freestyle-developments.co.uk/contact) or [add an issue on GitHub](https://github.com/alanshaw/JavaScript-Image-Optimiser/issues)
 
-...or check the [Frequently asked questions](https://github.com/alanshaw/JavaScript-Image-Optimiser/blob/master/doc/faq.md)
+...or check the [frequently asked questions](https://github.com/alanshaw/JavaScript-Image-Optimiser/blob/master/doc/faq.md)
