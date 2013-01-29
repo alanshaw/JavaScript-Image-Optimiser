@@ -1,4 +1,4 @@
-What is JSIO? [![Build Status](https://travis-ci.org/alanshaw/JavaScript-Image-Optimiser.png)](https://travis-ci.org/alanshaw/JavaScript-Image-Optimiser)
+What is JSIO? [![Build Status](https://travis-ci.org/alanshaw/JavaScript-Image-Optimiser.png)](https://travis-ci.org/alanshaw/JavaScript-Image-Optimiser) [![Dependency Status](http://david-dm.org/alanshaw/david/status.png)](http://david-dm.org/alanshaw/david)
 =============
 
 JSIO is a tiny library that allows you to make fewer requests to your server by packaging all your site image data in a JavaScript file in [data uri format](http://en.wikipedia.org/wiki/Data_URI_scheme). The idea is that a Gzipped JavaScript file containing all your image data is likely to be smaller than the sum of each image file and its associated HTTP request and header traffic.
